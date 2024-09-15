@@ -21,6 +21,23 @@
     input_category.value = null
   }
 
+  const removeTodo = (x) =>{
+    myArray.value = myArray.value.filter(Element => Element !== x)
+  }
+
+  onMounted( () =>{
+    name.value = localStorage.getItem('name')  ||  ''
+    myArray.value = JSON.parse(localStorage.getItem('myArray')) || []
+  })
+
+  watch(name, (newVal) => {
+    localStorage.setItem('name', newVal)
+  })
+
+  watch(myArray, (newVal) => {
+    localStorage.setItem('myArray', JSON.stringify(newVal))
+  }, {deep: true})
+
 </script>
 
 <template>
@@ -52,7 +69,7 @@
             <div>Personal</div>
           </label>
         </div>
-        <input type="submit" value="Add To Do" />
+        <input type="submit" value="Add To Do"/>
       </form>
     </section>
 
